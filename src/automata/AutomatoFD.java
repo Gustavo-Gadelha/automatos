@@ -1,3 +1,5 @@
+package automata;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +33,9 @@ public class AutomatoFD {
                 throw new RuntimeException("Simbolo não faz parte do alfabeto");
             }
 
-            atual = this.transicoes.get(atual).get(simbolo);
+            Estado destino = this.transicoes.get(atual).get(simbolo);
+            System.out.printf("%s -> %s -> %s%n", atual, simbolo, destino);
+            atual = destino;
         }
 
         return this.finais.contains(atual);

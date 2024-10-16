@@ -1,3 +1,5 @@
+package automata;
+
 public class Estado {
     private String nome;
 
@@ -7,8 +9,6 @@ public class Estado {
 
     @Override
     public String toString() {
-        return "Estado{" +
-                "nome='" + nome + '\'' +
-                '}';
+        return nome;
     }
 }
