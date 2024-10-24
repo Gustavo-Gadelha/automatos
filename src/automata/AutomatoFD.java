@@ -4,38 +4,35 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class AutomatoFD {
-    private final Set<Character> linguagem;
-    private final Set<Estado> estados;
-    private final Map<Estado, Map<Character, Estado>> transicoes;
-    private final Estado inicial;
-    private final Set<Estado> finais;
+public class AutomatoFD extends Automato {
+    protected final Map<Estado, Map<Character, Estado>> transicoes;
 
-    public AutomatoFD(Set<Character> linguagem, Set<Estado> estados, Estado inicial, Set<Estado> finais) {
-        this.linguagem = linguagem;
-        this.estados = estados;
-        this.inicial = inicial;
-        this.finais = finais;
+    public AutomatoFD(Set<Character> alfabeto, Set<Estado> estados, Estado inicial, Set<Estado> finais) {
+        super(alfabeto, estados, inicial, finais);
 
         this.transicoes = new HashMap<>();
-        this.estados.forEach((estado) -> transicoes.put(estado, new HashMap<>()));
+        this.estados.forEach((estado) -> this.transicoes.put(estado, new HashMap<>()));
     }
 
-    public void transicao(Estado origem, Character simbolo, Estado destino) {
+    public void fazerTransicao(Estado origem, Character simbolo, Estado destino) {
         this.transicoes.get(origem).put(simbolo, destino);
     }
 
+    public Estado get(Estado origem, Character simbolo) {
+        return this.transicoes.get(origem).get(simbolo);
+    }
+
+    @Override
     public boolean aceita(String cadeia) {
         Estado atual = this.inicial;
 
         for (char simbolo : cadeia.toCharArray()) {
-            if (!this.linguagem.contains(simbolo)) {
+            if (!this.alfabeto.contains(simbolo)) {
                 throw new RuntimeException("Simbolo não faz parte do alfabeto");
             }
 
-            Estado destino = this.transicoes.get(atual).get(simbolo);
-            System.out.printf("%s -> %s -> %s%n", atual, simbolo, destino);
-            atual = destino;
+            // System.out.printf("%s -> %s -> %s%n", atual, simbolo, this.get(atual, simbolo));
+            atual = this.get(atual, simbolo);
         }
 
         return this.finais.contains(atual);

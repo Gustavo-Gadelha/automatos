@@ -1,4 +1,4 @@
-package questoes;
+package linguagens;
 
 import automata.AutomatoFD;
 import automata.Estado;
@@ -18,18 +18,18 @@ public class Q7 {
         Set<Estado> finais = Set.of(q2, q4);
 
         AutomatoFD automato = new AutomatoFD(linguagem, estados, q0, finais);
-        automato.transicao(q0, '0', q3);
-        automato.transicao(q0, '1', q1);
-        automato.transicao(q1, '0', q1);
-        automato.transicao(q1, '1', q2);
-        automato.transicao(q2, '0', q1);
-        automato.transicao(q2, '1', q2);
-        automato.transicao(q3, '0', q4);
-        automato.transicao(q3, '1', q3);
-        automato.transicao(q4, '0', q4);
-        automato.transicao(q4, '1', q3);
+        automato.fazerTransicao(q0, '0', q3);
+        automato.fazerTransicao(q0, '1', q1);
+        automato.fazerTransicao(q1, '0', q1);
+        automato.fazerTransicao(q1, '1', q2);
+        automato.fazerTransicao(q2, '0', q1);
+        automato.fazerTransicao(q2, '1', q2);
+        automato.fazerTransicao(q3, '0', q4);
+        automato.fazerTransicao(q3, '1', q3);
+        automato.fazerTransicao(q4, '0', q4);
+        automato.fazerTransicao(q4, '1', q3);
 
-        String cadeia = "01010101001010";
+        String cadeia = "01010101001011111110";
 
         if (automato.aceita(cadeia)) {
             System.out.println("Cadeia aceita por autômata");
