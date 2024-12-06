@@ -1,34 +1,35 @@
 package linguagens;
 
-import automata.AutomatoFD;
-import automata.Estado;
+import automata.NFAutomaton;
+import automata.State;
 
 import java.util.Set;
 
 public class Q8 {
     public static void main(String[] args) {
-        Estado q0 = new Estado("q0");
-        Estado q1 = new Estado("q1");
-        Estado q2 = new Estado("q2");
-        Set<Character> alfabeto = Set.of('0', '1');
+        State q0 = new State("q0");
+        State q1 = new State("q1");
+        State q2 = new State("q2");
+        Set<Character> alphabet = Set.of('0', '1');
 
-        Set<Estado> estados = Set.of(q0, q1, q2);
-        Set<Estado> finais = Set.of(q1);
+        Set<State> states = Set.of(q0, q1, q2);
+        Set<State> finals = Set.of(q1);
 
-        AutomatoFD automato = new AutomatoFD(alfabeto, estados, q0, finais);
-        automato.fazerTransicao(q0, '0', q0);
-        automato.fazerTransicao(q0, '1', q1);
-        automato.fazerTransicao(q1, '0', q0);
-        automato.fazerTransicao(q1, '1', q2);
-        automato.fazerTransicao(q2, '0', q0);
-        automato.fazerTransicao(q2, '1', q1);
+        NFAutomaton automaton = new NFAutomaton(alphabet, states, q0, finals);
 
-        String cadeia = "0111";
+        automaton.transition(q0, '0', q0);
+        automaton.transition(q0, '1', q1);
+        automaton.transition(q1, '0', q0);
+        automaton.transition(q1, '1', q2);
+        automaton.transition(q2, '0', q0);
+        automaton.transition(q2, '1', q1);
 
-        if (automato.aceita(cadeia)) {
-            System.out.println("Cadeia aceita por autômata");
+        String input = "0111";
+
+        if (automaton.accept(input)) {
+            System.out.println("Cadeia aceita por autômato");
         } else {
-            System.out.println("Cadeia rejeitada por autômata");
+            System.out.println("Cadeia rejeitada por autômato");
         }
     }
 }
